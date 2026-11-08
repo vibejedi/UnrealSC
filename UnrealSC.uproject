@@ -1,0 +1,18 @@
+{
+  "FileVersion": 3,
+  "Category": "Games",
+  "Description": "RTS presentation prototype with an external authoritative simulation roadmap",
+  "Modules": [
+    {
+      "Name": "UnrealSC",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "EnhancedInput",
+      "Enabled": true
+    }
+  ]
+}
