@@ -1,16 +1,18 @@
 # UnrealSC development milestones
 
-- [x] Initialize repository and UE5 native module on a feature branch.
-- [x] Implement basic WASD camera pan and mouse-wheel zoom (uncompiled source implementation).
-- [ ] Verify editor loads project, camera input, and packaged build on Windows.
-- [ ] Audit OpenBW license, dependencies, build and actual step/action/state APIs using a pinned revision.
-- [ ] Run OpenBW independently with owned game data; record a deterministic combat test.
-- [ ] Design/test versioned IPC protocol and external bridge process.
-- [ ] Render external simulation snapshots in UE5 using primitive unit proxies.
-- [ ] Translate RTS selection/right-click/attack-move into authoritative commands.
-- [ ] Render terrain from owned map input; retain original walkability and simulation grid.
-- [ ] Implement deterministic regression tests against recorded simulation behavior.
-- [ ] Add custom 3D assets and animation once core behavior is proven.
+- [x] Initialize UE5 native module, targets, RTS camera and player controller.
+- [x] User confirmed the initial UE5.8 Mac editor build and camera work.
+- [x] Add sandbox code: 5 Marine proxies, 8 Zergling proxies, single selection and mock movement (uncompiled).
+- [ ] Compile/test the sandbox on UE5.8 Mac.
+- [ ] Verify OpenBW license, dependencies and actual action/state APIs at a pinned revision.
+- [ ] Build OpenBW headlessly and execute a deterministic combat scenario with owned game data.
+- [ ] Implement versioned IPC adapter for commands and simulation snapshots.
+- [ ] Replace mock per-actor movement with authoritative OpenBW positions.
+- [ ] Add group selection, attack-move, combat state and HUD based on engine snapshots.
+- [ ] Import/visualize terrain while retaining original pathing and collision grids.
+- [ ] Run deterministic tests against simulation/replay outputs.
+- [ ] Add original 3D meshes, animation and VFX after engine integration proves faithful.
 
-## First acceptance test
-A locally running external simulation drives five Marine proxies and eight Zergling proxies across a UE5 scene. Mouse commands travel to the external engine; UE only interpolates unit visuals. No original game assets are required for this test.
+## Important boundary
+
+Mock movement is disposable. Unreal never becomes the gameplay authority in the final architecture. No proprietary assets or unlicensed OpenBW source are included.

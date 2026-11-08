@@ -10,4 +10,5 @@ class UNREALSC_API ARTSGameMode : public AGameModeBase
     GENERATED_BODY()
 public:
     ARTSGameMode();
+    virtual void BeginPlay() override;
 };

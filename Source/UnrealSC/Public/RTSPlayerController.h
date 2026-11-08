@@ -4,6 +4,8 @@
 #include "GameFramework/PlayerController.h"
 #include "RTSPlayerController.generated.h"
 
+class ASandboxUnit;
+
 UCLASS()
 class UNREALSC_API ARTSPlayerController : public APlayerController
 {
@@ -11,4 +13,12 @@ class UNREALSC_API ARTSPlayerController : public APlayerController
 public:
     ARTSPlayerController();
     virtual void BeginPlay() override;
+    virtual void SetupInputComponent() override;
+
+private:
+    UPROPERTY()
+    TObjectPtr<ASandboxUnit> SelectedUnit;
+
+    void SelectUnderCursor();
+    void IssueMockMoveUnderCursor();
 };

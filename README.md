@@ -1,19 +1,29 @@
 # UnrealSC
 
-Unreal Engine 5 C++ RTS presentation prototype with the longer-term goal of studying faithful Brood War gameplay behavior using a separate simulation process.
+Unreal Engine 5.8 C++ RTS prototype. Long-term goal: study faithful Brood War behavior with a separate authoritative simulation and modern 3D rendering.
 
-**Status:** Foundation source code only. UE5 compilation and runtime have **not** yet been tested. No simulation bridge is implemented yet.
+**Status:** UE5.8 Mac foundation reported working; combat sandbox source awaiting compile/test. There is **no OpenBW bridge yet** and no authentic Brood War simulation.
 
-## Quick start (Windows)
-1. Install Unreal Engine 5.5+ and the matching Visual Studio C++ toolchain (Desktop development with C++ and Game development with C++).
-2. Clone this repository and right-click `UnrealSC.uproject` → **Generate Visual Studio project files** (or open the project using the Unreal Editor).
-3. Compile the **UnrealSCEditor** target and open the project.
-4. Create a **Basic** level if the editor opens with an empty default; press Play and test **WASD** pan and **mouse wheel** zoom. Input currently uses classic axis bindings for minimal setup.
+## Quick start (macOS)
 
-The initial game mode uses a native C++ RTS camera pawn and player controller. There are no game units, selection, terrain importer, external engine or packaged builds yet.
+```bash
+git clone -b feat/rts-combat-sandbox https://github.com/vibejedi/UnrealSC.git
+open "$HOME/Documents/Unreal Projects/UnrealSC/UnrealSC.uproject"
+```
 
-## Architecture
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/ROADMAP.md](docs/ROADMAP.md).
+If you already cloned it, switch branches and pull:
+
+```bash
+cd "$HOME/Documents/Unreal Projects/UnrealSC"
+git fetch origin
+git switch feat/rts-combat-sandbox
+git pull
+```
+
+Compile the UnrealSCEditor target using your Unreal Engine 5.8 installation. Create a Basic level and click Play.
+
+The sandbox spawns five Marine proxy cubes and eight Zergling proxy cubes. WASD pans, scroll zooms, left-click selects one Marine, and right-click orders placeholder movement. **This is a UI/control experiment, not the real simulation.** See [Sandbox guide](docs/SANDBOX.md), [architecture](docs/ARCHITECTURE.md) and [roadmap](docs/ROADMAP.md).
 
 ## Legal / assets
-Not affiliated with Blizzard Entertainment. This repository does not include StarCraft/Brood War assets or game data. OpenBW has not been included pending an explicit license and integration audit. Do not commit original game archives or extracted assets.
+
+This project is not affiliated with Blizzard Entertainment. It includes no StarCraft assets, audio, archives, maps or extracted data. No OpenBW code is bundled pending verification of reuse rights.
