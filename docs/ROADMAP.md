@@ -1,18 +1,15 @@
 # UnrealSC development milestones
 
-- [x] Initialize UE5 native module, targets, RTS camera and player controller.
-- [x] User confirmed the initial UE5.8 Mac editor build and camera work.
-- [x] Add sandbox code: 5 Marine proxies, 8 Zergling proxies, single selection and mock movement (uncompiled).
-- [ ] Compile/test the sandbox on UE5.8 Mac.
-- [ ] Verify OpenBW license, dependencies and actual action/state APIs at a pinned revision.
-- [ ] Build OpenBW headlessly and execute a deterministic combat scenario with owned game data.
-- [ ] Implement versioned IPC adapter for commands and simulation snapshots.
-- [ ] Replace mock per-actor movement with authoritative OpenBW positions.
-- [ ] Add group selection, attack-move, combat state and HUD based on engine snapshots.
-- [ ] Import/visualize terrain while retaining original pathing and collision grids.
-- [ ] Run deterministic tests against simulation/replay outputs.
-- [ ] Add original 3D meshes, animation and VFX after engine integration proves faithful.
+- [x] Initialize UE5 native module, RTS camera and player controller; user confirmed UE5.8 Mac launch and camera.
+- [x] Build 5 Marine / 8 Zergling sandbox with single-unit selection and right-click mock move; user confirmed it works.
+- [x] Add code for mock enemy AI, ranged/melee attacks, health/deaths, attack orders and Blueprint animation/VFX events (not yet compiled).
+- [ ] Compile and playtest milestone 3 on UE5.8 Apple Silicon.
+- [ ] Import first original rigged Marine-style and Zergling-style units; replace cubes through BP children.
+- [ ] Implement character Animation Blueprints and Niagara/SFX presentation.
+- [ ] Build polished Terran outpost terrain module and light it for RTS camera readability.
+- [ ] Add multi-unit box selection, attack-move and control groups.
+- [ ] Settle long-term simulation: audit OpenBW license, build and actual API; never silently substitute placeholder gameplay for Brood War fidelity.
+- [ ] Implement and compare authoritative simulation via an external bridge if appropriate.
+- [ ] Scale battles with proper profiling, LODs and efficient unit representations.
 
-## Important boundary
-
-Mock movement is disposable. Unreal never becomes the gameplay authority in the final architecture. No proprietary assets or unlicensed OpenBW source are included.
+Core principle: raise presentation quality immediately without letting temporary UE-specific gameplay become the permanent source of truth.

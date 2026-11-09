@@ -1,29 +1,28 @@
 # UnrealSC
 
-Unreal Engine 5.8 C++ RTS prototype. Long-term goal: study faithful Brood War behavior with a separate authoritative simulation and modern 3D rendering.
+UE 5.8 C++ RTS prototype, exploring a modern 3D Brood War-inspired game. Community prototype; not affiliated with Blizzard Entertainment.
 
-**Status:** UE5.8 Mac foundation reported working; combat sandbox source awaiting compile/test. There is **no OpenBW bridge yet** and no authentic Brood War simulation.
+## Status
 
-## Quick start (macOS)
+- **Milestone 1** (Mac UE5.8 foundation): verified by user.
+- **Milestone 2** (5-v-8 mock units, RTS selection and movement): verified by user.
+- **Milestone 3** (combat and Blueprint art hooks): source committed, awaiting Mac UE5.8 compile/playtest.
 
-```bash
-git clone -b feat/rts-combat-sandbox https://github.com/vibejedi/UnrealSC.git
-open "$HOME/Documents/Unreal Projects/UnrealSC/UnrealSC.uproject"
-```
+This branch implements temporary arcade-like combat, **not authentic Brood War simulation**. No imported unit meshes, animations or Blizzard-owned game data are bundled.
 
-If you already cloned it, switch branches and pull:
+## On your Mac
 
 ```bash
 cd "$HOME/Documents/Unreal Projects/UnrealSC"
 git fetch origin
-git switch feat/rts-combat-sandbox
-git pull
+git switch feat/combat-vertical-slice
+git pull --ff-only origin feat/combat-vertical-slice
 ```
 
-Compile the UnrealSCEditor target using your Unreal Engine 5.8 installation. Create a Basic level and click Play.
+Close the Unreal Editor before rebuilding. If your local level is untracked or modified, commit/back it up separately instead of cleaning the working tree.
 
-The sandbox spawns five Marine proxy cubes and eight Zergling proxy cubes. WASD pans, scroll zooms, left-click selects one Marine, and right-click orders placeholder movement. **This is a UI/control experiment, not the real simulation.** See [Sandbox guide](docs/SANDBOX.md), [architecture](docs/ARCHITECTURE.md) and [roadmap](docs/ROADMAP.md).
+See [Combat test](docs/COMBAT_VERTICAL_SLICE.md), [Asset pipeline](docs/ART_PIPELINE.md), and [Architecture](docs/ARCHITECTURE.md).
 
 ## Legal / assets
 
-This project is not affiliated with Blizzard Entertainment. It includes no StarCraft assets, audio, archives, maps or extracted data. No OpenBW code is bundled pending verification of reuse rights.
+No StarCraft archives, extracted art, sounds, maps, or OpenBW code are included. Original art is required for any independently distributable project, and a separate licensing review is needed for any public StarCraft-branded remake.
