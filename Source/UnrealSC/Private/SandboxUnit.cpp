@@ -39,7 +39,7 @@ ASandboxUnit::ASandboxUnit()
     Label->SetupAttachment(RootComponent);
     Label->SetHorizontalAlignment(EHTA_Center);
     Label->SetWorldSize(38.0f);
-    Label->SetRelativeLocation(FVector(0.0f, 0.0f, 115.0f));
+    Label->SetRelativeLocation(FVector(0.0f, 0.0f, 230.0f));
 }
 
 void ASandboxUnit::BeginPlay()
@@ -68,6 +68,8 @@ void ASandboxUnit::InitializeUnit(int32 InUnitId, ESandboxUnitType InType)
         Damage = 8.0f;
         AttackInterval = 0.68f;
         VisualMesh->SetRelativeScale3D(FVector(0.6f, 0.6f, 0.7f));
+        VisualMesh->SetRelativeLocation(FVector(0.0f, 0.0f, 35.0f));
+        Label->SetRelativeLocation(FVector(0.0f, 0.0f, 260.0f));
     }
     else
     {
@@ -78,6 +80,8 @@ void ASandboxUnit::InitializeUnit(int32 InUnitId, ESandboxUnitType InType)
         Damage = 5.0f;
         AttackInterval = 0.9f;
         VisualMesh->SetRelativeScale3D(FVector(0.8f, 0.5f, 0.45f));
+        VisualMesh->SetRelativeLocation(FVector(0.0f, 0.0f, 22.5f));
+        Label->SetRelativeLocation(FVector(0.0f, 0.0f, 150.0f));
     }
 
     Health = MaxHealth;
@@ -182,6 +186,8 @@ void ASandboxUnit::MoveTowards(const FVector& Destination, float DeltaSeconds)
     const FVector Next = FMath::VInterpConstantTo(From, To,
         DeltaSeconds, MovementSpeed);
     SetActorLocation(Next, false);
+    VisualMoveSpeed = DeltaSeconds > UE_SMALL_NUMBER
+        ? FVector::Dist2D(From, Next) / DeltaSeconds : 0.0f;
     const FVector Delta = To - From;
     if (!Delta.IsNearlyZero())
     {
@@ -201,8 +207,8 @@ void ASandboxUnit::Attack(ASandboxUnit* Target)
     // Temporary tracer for the presentation sandbox; replaced by authored VFX.
     if (IsPlayerControlled() && GetWorld())
     {
-        const FVector Start = GetActorLocation() + FVector(0.0f, 0.0f, 40.0f);
-        const FVector End = Target->GetActorLocation() + FVector(0.0f, 0.0f, 30.0f);
+        const FVector Start = GetActorLocation() + FVector(0.0f, 0.0f, 115.0f);
+        const FVector End = Target->GetActorLocation() + FVector(0.0f, 0.0f, 70.0f);
         DrawDebugLine(GetWorld(), Start, End, FColor(255, 215, 95),
             false, 0.12f, 0, 3.5f);
         DrawDebugSphere(GetWorld(), End, 28.0f, 8, FColor::Orange,
@@ -246,6 +252,7 @@ void ASandboxUnit::Die()
 void ASandboxUnit::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    VisualMoveSpeed = 0.0f;
     if (bDead)
     {
         return;
@@ -296,7 +303,7 @@ void ASandboxUnit::Tick(float DeltaSeconds)
             }
             if (bSelected && GetWorld())
             {
-                DrawDebugCircle(GetWorld(), GetActorLocation() - FVector(0, 0, 30),
+                DrawDebugCircle(GetWorld(), GetActorLocation() + FVector(0, 0, 6),
                     75.0f, 24, FColor::Green, false, 0.0f, 0, 3.0f,
                     FVector(1, 0, 0), FVector(0, 1, 0), false);
             }
@@ -319,7 +326,7 @@ void ASandboxUnit::Tick(float DeltaSeconds)
 
     if (bSelected && GetWorld())
     {
-        DrawDebugCircle(GetWorld(), GetActorLocation() - FVector(0, 0, 30),
+        DrawDebugCircle(GetWorld(), GetActorLocation() + FVector(0, 0, 6),
             75.0f, 24, FColor::Green, false, 0.0f, 0, 3.0f,
             FVector(1, 0, 0), FVector(0, 1, 0), false);
     }

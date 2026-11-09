@@ -54,6 +54,13 @@ public:
     UFUNCTION(BlueprintPure, Category="Sandbox|Combat")
     ESandboxUnitType GetUnitType() const { return UnitType; }
 
+    /** For Animation Blueprints; represents temporary visual movement only. */
+    UFUNCTION(BlueprintPure, Category="Sandbox|Presentation")
+    float GetVisualMoveSpeed() const { return VisualMoveSpeed; }
+
+    UFUNCTION(BlueprintPure, Category="Sandbox|Presentation")
+    bool IsVisuallyMoving() const { return VisualMoveSpeed > 5.0f; }
+
     /** Implement in a Blueprint child when detailed animation and VFX are ready. */
     UFUNCTION(BlueprintImplementableEvent, Category="Sandbox|Presentation")
     void BP_OnAttack(ASandboxUnit* TargetUnit);
@@ -107,6 +114,7 @@ private:
     float CooldownRemaining = 0.0f;
     float SearchRemaining = 0.0f;
     float HitFlashRemaining = 0.0f;
+    float VisualMoveSpeed = 0.0f;
 
     void FindNearestEnemy();
     void MoveTowards(const FVector& Destination, float DeltaSeconds);
