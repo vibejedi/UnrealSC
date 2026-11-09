@@ -5,9 +5,10 @@
 #include "CombatSandbox.generated.h"
 
 class UStaticMeshComponent;
+class ASandboxUnit;
 
-/** Spawns a temporary 3D test map with 5 Marines and 8 Zerglings. */
-UCLASS()
+/** Replaceable 5-v-8 combat test encounter, not authentic Brood War logic. */
+UCLASS(Blueprintable)
 class UNREALSC_API ACombatSandbox : public AActor
 {
     GENERATED_BODY()
@@ -20,4 +21,11 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Sandbox")
     TObjectPtr<UStaticMeshComponent> Ground;
+
+    /** In a placed Blueprint subclass, set these to unit Blueprint classes. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sandbox|Art")
+    TSubclassOf<ASandboxUnit> MarineClass;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sandbox|Art")
+    TSubclassOf<ASandboxUnit> ZerglingClass;
 };

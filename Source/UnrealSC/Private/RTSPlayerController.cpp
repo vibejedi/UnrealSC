@@ -38,32 +38,40 @@ void ARTSPlayerController::SelectUnderCursor()
         HitUnit = Cast<ASandboxUnit>(Hit.GetActor());
     }
 
-    if (SelectedUnit)
+    if (IsValid(SelectedUnit))
     {
         SelectedUnit->SetSelected(false);
-        SelectedUnit = nullptr;
     }
+    SelectedUnit = nullptr;
 
-    if (HitUnit && HitUnit->IsPlayerControlled())
+    if (IsValid(HitUnit) && HitUnit->IsPlayerControlled() && HitUnit->IsAlive())
     {
         SelectedUnit = HitUnit;
         SelectedUnit->SetSelected(true);
-        UE_LOG(LogTemp, Log, TEXT("UnrealSC selected mock unit %d"),
-            SelectedUnit->GetUnitId());
     }
 }
 
 void ARTSPlayerController::IssueMockMoveUnderCursor()
 {
-    if (!SelectedUnit)
+    if (!IsValid(SelectedUnit) || !SelectedUnit->IsAlive())
     {
         return;
     }
 
     FHitResult Hit;
-    if (GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+    if (!GetHitResultUnderCursor(ECC_Visibility, false, Hit))
     {
-        // Sandbox-only movement: the future OpenBW bridge will own commands and positions.
+        return;
+    }
+
+    ASandboxUnit* HitUnit = Cast<ASandboxUnit>(Hit.GetActor());
+    if (IsValid(HitUnit) && HitUnit->IsAlive() && !HitUnit->IsPlayerControlled())
+    {
+        SelectedUnit->SetMockAttackTarget(HitUnit);
+    }
+    else
+    {
+        // Temporary movement implementation; future orders go to OpenBW.
         SelectedUnit->SetMockMoveTarget(Hit.ImpactPoint);
     }
 }

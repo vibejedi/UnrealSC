@@ -21,6 +21,9 @@ ACombatSandbox::ACombatSandbox()
     {
         Ground->SetStaticMesh(PlaneMesh.Object);
     }
+
+    MarineClass = ASandboxUnit::StaticClass();
+    ZerglingClass = ASandboxUnit::StaticClass();
 }
 
 void ACombatSandbox::BeginPlay()
@@ -33,14 +36,15 @@ void ACombatSandbox::BeginPlay()
         return;
     }
 
-    FActorSpawnParameters SpawnParams;
-    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    FActorSpawnParameters Params;
+    Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
     for (int32 Index = 0; Index < 5; ++Index)
     {
         const FVector Position(-800.0f, (Index - 2) * 230.0f, 80.0f);
+        UClass* UnitClass = MarineClass ? MarineClass.Get() : ASandboxUnit::StaticClass();
         if (ASandboxUnit* Unit = World->SpawnActor<ASandboxUnit>(
-                ASandboxUnit::StaticClass(), Position, FRotator::ZeroRotator, SpawnParams))
+                UnitClass, Position, FRotator::ZeroRotator, Params))
         {
             Unit->InitializeUnit(Index + 1, ESandboxUnitType::Marine);
         }
@@ -50,8 +54,9 @@ void ACombatSandbox::BeginPlay()
     {
         const FVector Position(800.0f + (Index / 4) * 160.0f,
             (Index % 4) * 240.0f - 360.0f, 80.0f);
+        UClass* UnitClass = ZerglingClass ? ZerglingClass.Get() : ASandboxUnit::StaticClass();
         if (ASandboxUnit* Unit = World->SpawnActor<ASandboxUnit>(
-                ASandboxUnit::StaticClass(), Position, FRotator::ZeroRotator, SpawnParams))
+                UnitClass, Position, FRotator::ZeroRotator, Params))
         {
             Unit->InitializeUnit(100 + Index, ESandboxUnitType::Zergling);
         }

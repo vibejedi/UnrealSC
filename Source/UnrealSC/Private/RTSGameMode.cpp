@@ -4,6 +4,7 @@
 #include "RTSPlayerController.h"
 #include "CombatSandbox.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 
 ARTSGameMode::ARTSGameMode()
 {
@@ -15,9 +16,19 @@ void ARTSGameMode::BeginPlay()
 {
     Super::BeginPlay();
 
-    // Spawn the standalone sandbox in any basic empty test level.
-    // No OpenBW simulation is active at this stage.
-    if (UWorld* World = GetWorld())
+    UWorld* World = GetWorld();
+    if (!World)
+    {
+        return;
+    }
+
+    // A designer may place BP_CombatSandbox in the level and assign BP unit classes.
+    // Avoid creating a second arena in that case.
+    TArray<AActor*> ExistingSandboxes;
+    UGameplayStatics::GetAllActorsOfClass(
+        World, ACombatSandbox::StaticClass(), ExistingSandboxes);
+
+    if (ExistingSandboxes.IsEmpty())
     {
         World->SpawnActor<ACombatSandbox>(
             ACombatSandbox::StaticClass(),
