@@ -22,3 +22,7 @@ The new unit actor uses a neutral SceneRoot located at ground level (spawn Z = 1
 Rigging with a generic humanoid auto-rigger may deform heavy shoulder plates and rigid armor. Expect manual weight painting, hard-surface armor segmentation, and a separate rifle mesh with a hand socket. An idle action does not equal a complete animation set; running, firing and death animations remain separate production tasks.
 
 Do not commit the licensed or otherwise third-party asset bundle to GitHub unless rights are confirmed. Generated original character art should be archived in a project asset folder with generation settings and attribution, not only in transient URLs.
+
+## Generated Marine MK-I QA result
+
+The first source rig has 24 joints and an Idle animation. Separately generated RunFast, Side_Shot, and Shot_and_Fall_Backward clips have matching bone names and parent hierarchy but **different inverse-bind matrices**. Retarget the extra clips before combining them on one Unreal skeleton; never treat bone-name equality as sufficient. See [MARINE_MK1_VALIDATION.md](MARINE_MK1_VALIDATION.md). The high source vertex count also demands optimization/LODs before scaling to large RTS battles.
