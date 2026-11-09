@@ -41,7 +41,7 @@ void ACombatSandbox::BeginPlay()
 
     for (int32 Index = 0; Index < 5; ++Index)
     {
-        const FVector Position(-800.0f, (Index - 2) * 230.0f, 80.0f);
+        const FVector Position(-800.0f, (Index - 2) * 230.0f, 12.0f);
         UClass* UnitClass = MarineClass ? MarineClass.Get() : ASandboxUnit::StaticClass();
         if (ASandboxUnit* Unit = World->SpawnActor<ASandboxUnit>(
                 UnitClass, Position, FRotator::ZeroRotator, Params))
@@ -53,7 +53,7 @@ void ACombatSandbox::BeginPlay()
     for (int32 Index = 0; Index < 8; ++Index)
     {
         const FVector Position(800.0f + (Index / 4) * 160.0f,
-            (Index % 4) * 240.0f - 360.0f, 80.0f);
+            (Index % 4) * 240.0f - 360.0f, 12.0f);
         UClass* UnitClass = ZerglingClass ? ZerglingClass.Get() : ASandboxUnit::StaticClass();
         if (ASandboxUnit* Unit = World->SpawnActor<ASandboxUnit>(
                 UnitClass, Position, FRotator::ZeroRotator, Params))
